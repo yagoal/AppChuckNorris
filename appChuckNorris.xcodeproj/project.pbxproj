@@ -10,6 +10,7 @@
 		2097290C27BBEB9500F0ADE4 /* TelaPesquisaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2097290B27BBEB9500F0ADE4 /* TelaPesquisaViewController.swift */; };
 		2097290E27BC0C2C00F0ADE4 /* seach-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2097290D27BC0C2B00F0ADE4 /* seach-green.png */; };
 		2097291027BC1B7F00F0ADE4 /* Busca.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2097290F27BC1B7F00F0ADE4 /* Busca.swift */; };
+		20B3DC0227BFD27600B4E9D0 /* shared-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 20B3DC0127BFD27600B4E9D0 /* shared-icon.png */; };
 		20DEE36E27B8654E0047032B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEE36D27B8654E0047032B /* AppDelegate.swift */; };
 		20DEE37027B8654E0047032B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEE36F27B8654E0047032B /* SceneDelegate.swift */; };
 		20DEE37227B8654E0047032B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEE37127B8654E0047032B /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		2097290B27BBEB9500F0ADE4 /* TelaPesquisaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelaPesquisaViewController.swift; sourceTree = "<group>"; };
 		2097290D27BC0C2B00F0ADE4 /* seach-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seach-green.png"; sourceTree = "<group>"; };
 		2097290F27BC1B7F00F0ADE4 /* Busca.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Busca.swift; sourceTree = "<group>"; };
+		20B3DC0127BFD27600B4E9D0 /* shared-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shared-icon.png"; path = "../../../../Downloads/shared-icon.png"; sourceTree = "<group>"; };
 		20DEE36A27B8654E0047032B /* appChuckNorris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appChuckNorris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEE36D27B8654E0047032B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20DEE36F27B8654E0047032B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				2097290D27BC0C2B00F0ADE4 /* seach-green.png */,
 				20DEE37327B8654E0047032B /* Main.storyboard */,
 				20DEE37627B8654F0047032B /* Assets.xcassets */,
+				20B3DC0127BFD27600B4E9D0 /* shared-icon.png */,
 				20DEE37827B8654F0047032B /* LaunchScreen.storyboard */,
 				20DEE37B27B8654F0047032B /* Info.plist */,
 				2097290F27BC1B7F00F0ADE4 /* Busca.swift */,
@@ -245,6 +248,7 @@
 			files = (
 				2097290E27BC0C2C00F0ADE4 /* seach-green.png in Resources */,
 				20DEE37A27B8654F0047032B /* LaunchScreen.storyboard in Resources */,
+				20B3DC0227BFD27600B4E9D0 /* shared-icon.png in Resources */,
 				20DEE37727B8654F0047032B /* Assets.xcassets in Resources */,
 				20DEE37527B8654E0047032B /* Main.storyboard in Resources */,
 			);

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .black
-        label.font = UIFont (name: "Verdana", size: 20)
+        label.font = UIFont (name: "Noteworthy-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     var categoria:UILabel =  {
         let labelCategoria = UILabel()
         labelCategoria.textColor = .black
-        labelCategoria.font = UIFont (name: "Verdana-Bold", size: 18)
+        labelCategoria.font = UIFont (name: "Noteworthy-Light", size: 18)
         labelCategoria.translatesAutoresizingMaskIntoConstraints = false
         return labelCategoria
     }()
@@ -38,10 +38,10 @@ class ViewController: UIViewController {
     var gerarNovoFato:UIButton = {
         let button = UIButton ()
         button.setTitle("Gerar outro fato", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.blue, for: .highlighted)
-        button.titleLabel?.font =  UIFont(name: "Verdana-Bold" ,size: 20)
-        button.backgroundColor = .systemGreen
+        button.titleLabel?.font =  UIFont(name: "Noteworthy-Bold" ,size: 20)
+        button.backgroundColor = .black
         button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(gerarFato), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -56,9 +56,10 @@ class ViewController: UIViewController {
             
             super.viewDidLoad()
 //            navigationItem.searchController = searchController
-            self.view.backgroundColor = .systemBlue
+            self.view.backgroundColor = .systemGray
             gerarFato()
-
+            
+            self.view.addSubview(progressView)
             self.view.addSubview(frase)
             self.view.addSubview(categoria)
             self.view.addSubview(gerarNovoFato)
@@ -87,10 +88,49 @@ class ViewController: UIViewController {
                     .constraint(equalTo: view.leadingAnchor, constant: 24.0),
                 gerarNovoFato.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24.0),
                 gerarNovoFato.heightAnchor.constraint(equalToConstant: 52.0),
-                gerarNovoFato.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0)
+                gerarNovoFato.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0),
+                
+                progressView.centerXAnchor.constraint(equalTo: frase.centerXAnchor),
+                progressView.centerYAnchor.constraint(equalTo: frase.centerYAnchor)
             ])
     }
     
+    let progressView: UIActivityIndicatorView = {
+        let progress = UIActivityIndicatorView (style: .large)
+        progress.startAnimating()
+        progress.isHidden = true
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        return progress
+    }()
+
+    
+    @objc func gerarFato () {
+        self.progressView.isHidden = false
+        fato.getFato {
+            
+            var stringCategoria:String = "Categoria: "
+            DispatchQueue.main.async {
+                
+                self.frase.text = self.fato.fato
+                print(self.fato.fato)
+                if self.fato.categoria.count > 0 {
+                    for i in 0..<self.fato.categoria.count {
+                        stringCategoria += i < self.fato.categoria.count - 1 ? self.fato.categoria[i] + ", " : self.fato.categoria[i] + "."
+                    }
+                    self.categoria.text = stringCategoria
+                } else {
+                    self.categoria.text = "uncategorized"
+                }
+                self.progressView.isHidden = true
+            }
+            
+        }
+    }
+}
+
+
+
+
 //    func setLoadingState(_ state:Bool) {
 //            if(state) {
 //                self.indicator.isHidden = false
@@ -103,31 +143,6 @@ class ViewController: UIViewController {
 //
 //    var indicator:UIActivityIndicatorView
 //    var texto
-    
-    @objc func gerarFato () {
-//        self.setLoadingState (true)
-        fato.getFato {
-            var stringCategoria:String = "Categoria: "
-            DispatchQueue.main.async {
-                self.frase.text = self.fato.fato
-                print(self.fato.fato)
-                if self.fato.categoria.count > 0 {
-                    for i in 0..<self.fato.categoria.count {
-                        stringCategoria += i < self.fato.categoria.count - 1 ? self.fato.categoria[i] + ", " : self.fato.categoria[i] + "."
-                    }
-                    self.categoria.text = stringCategoria
-                } else {
-                    self.categoria.text = "uncategorized"
-                }
-            }
-        }
-    }
-}
-
-
-
-
-
 
 //    func navBar () {
 //        let controller = ViewController()
