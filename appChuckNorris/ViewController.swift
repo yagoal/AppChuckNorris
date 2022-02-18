@@ -48,6 +48,14 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let progressView: UIActivityIndicatorView = {
+        let progress = UIActivityIndicatorView (style: .large)
+        progress.startAnimating()
+        progress.isHidden = true
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        return progress
+    }()
+    
     var fato = GetAPI()
     
 //    let searchController =  UISearchController (searchResultsController: TelaPesquisa())
@@ -95,15 +103,7 @@ class ViewController: UIViewController {
             ])
     }
     
-    let progressView: UIActivityIndicatorView = {
-        let progress = UIActivityIndicatorView (style: .large)
-        progress.startAnimating()
-        progress.isHidden = true
-        progress.translatesAutoresizingMaskIntoConstraints = false
-        return progress
-    }()
-
-    
+ 
     @objc func gerarFato () {
         self.progressView.isHidden = false
         fato.getFato {
