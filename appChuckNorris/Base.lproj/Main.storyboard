@@ -43,10 +43,10 @@
             </objects>
             <point key="canvasLocation" x="926.08695652173924" y="82.33695652173914"/>
         </scene>
-        <!--Tela Pesquisa-->
+        <!--Search-->
         <scene sceneID="xJq-la-BEt">
             <objects>
-                <viewController id="lI9-Xo-Onp" customClass="TelaPesquisa" customModule="appChuckNorris" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lI9-Xo-Onp" customClass="Search" customModule="appChuckNorris" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LpE-PR-J7i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

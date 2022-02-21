@@ -15,13 +15,13 @@ import UIKit
 class ViewController: UIViewController {
     
     
-    
+    let error = Error()
     
     var frase:UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .black
-        label.font = UIFont (name: "Noteworthy-Bold", size: 20)
+        label.font =  UIFont(name: "Noteworthy-Bold", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
@@ -29,21 +29,41 @@ class ViewController: UIViewController {
     
     var categoria:UILabel =  {
         let labelCategoria = UILabel()
+        labelCategoria.backgroundColor = .clear
+        labelCategoria.backgroundColor = .systemGreen
+        labelCategoria.layer.borderWidth = 2
+        labelCategoria.layer.masksToBounds = true
+        labelCategoria.layer.cornerRadius = 10
         labelCategoria.textColor = .black
-        labelCategoria.font = UIFont (name: "Noteworthy-Light", size: 18)
+        labelCategoria.font =  UIFont(name: "Noteworthy-Light", size: 18)
         labelCategoria.translatesAutoresizingMaskIntoConstraints = false
         return labelCategoria
     }()
     
     var gerarNovoFato:UIButton = {
         let button = UIButton ()
-        button.setTitle("Gerar outro fato", for: .normal)
+        button.setTitle("GENERATE FACT", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.blue, for: .highlighted)
-        button.titleLabel?.font =  UIFont(name: "Noteworthy-Bold" ,size: 20)
+        button.titleLabel?.font = UIFont(name: "Noteworthy-Bold" ,size: 22)
         button.backgroundColor = .black
         button.layer.cornerRadius = 25
-        button.addTarget(self, action: #selector(gerarFato), for: .touchUpInside)
+        button.addTarget(self, action: #selector(generateFact), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
+        return button
+    }()
+    
+    var buttonError:UIButton = {
+        let button = UIButton ()
+        button.setTitle("Try Again", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.blue, for: .highlighted)
+        button.titleLabel?.font = UIFont(name: "Noteworthy-Bold" ,size: 22)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 25
+        button.addTarget(self, action: #selector(generateFact), for: .touchUpInside)
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -56,7 +76,7 @@ class ViewController: UIViewController {
         return progress
     }()
     
-    var fato = GetAPI()
+    var fact = GetAPI()
     
 //    let searchController =  UISearchController (searchResultsController: TelaPesquisa())
     
@@ -64,22 +84,21 @@ class ViewController: UIViewController {
             
             super.viewDidLoad()
 //            navigationItem.searchController = searchController
-            self.view.backgroundColor = .systemGray
-            gerarFato()
+            self.view.backgroundColor = .systemGray3
+            generateFact()
             
             self.view.addSubview(progressView)
             self.view.addSubview(frase)
             self.view.addSubview(categoria)
             self.view.addSubview(gerarNovoFato)
+            self.view.addSubview(buttonError)
             
-            self.title = "Chuck Norris"
+            self.title = "FACTS ABOUT CHUCK NORRIS"
+            
             
             
             configureConstraints()
     }
-    
-    
-    
     
     
     func configureConstraints() {
@@ -90,7 +109,13 @@ class ViewController: UIViewController {
                 
                 categoria.topAnchor.constraint(greaterThanOrEqualTo: frase.bottomAnchor, constant: 24),
                 categoria.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-                categoria.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+                
+//                buttonError.topAnchor.constraint(greaterThanOrEqualTo: frase.bottomAnchor, constant: 24),
+                buttonError.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+                buttonError.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+                buttonError.heightAnchor.constraint(equalToConstant: 52.0),
+                buttonError.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100.0),
+//                categoria.widthAnchor.constraint(equalTo: categoria.widthAnchor),
                 
                 gerarNovoFato.leadingAnchor
                     .constraint(equalTo: view.leadingAnchor, constant: 24.0),
@@ -104,57 +129,35 @@ class ViewController: UIViewController {
     }
     
  
-    @objc func gerarFato () {
+    @objc func generateFact () {
         self.progressView.isHidden = false
-        fato.getFato {
+        fact.getFact {
             
-            var stringCategoria:String = "Categoria: "
+            var stringCategoria:String = "  Category: "
             DispatchQueue.main.async {
+                if (self.fact.error != self.fact.mensage) {
+                    self.frase.text = self.fact.fato
                 
-                self.frase.text = self.fato.fato
-                print(self.fato.fato)
-                if self.fato.categoria.count > 0 {
-                    for i in 0..<self.fato.categoria.count {
-                        stringCategoria += i < self.fato.categoria.count - 1 ? self.fato.categoria[i] + ", " : self.fato.categoria[i] + "."
+                    print(self.fact.fato)
+                    if self.fact.category.count > 0 {
+                        for i in 0..<self.fact.category.count {
+                            stringCategoria += i < self.fact.category.count - 1 ? self.fact.category[i] + ", " : self.fact.category[i] + ".  "
+                        }
+                        self.categoria.text = stringCategoria
+                    } else {
+                        self.categoria.text = "  uncategorized  "
                     }
-                    self.categoria.text = stringCategoria
+                    self.progressView.isHidden = true
+                    self.gerarNovoFato.isHidden = false
                 } else {
-                    self.categoria.text = "uncategorized"
+                    self.frase.text = self.fact.mensage
+                    self.gerarNovoFato.isHidden = true
+                    self.buttonError.isHidden = false
+                    self.progressView.isHidden = true
                 }
-                self.progressView.isHidden = true
             }
             
         }
     }
 }
 
-
-
-
-//    func setLoadingState(_ state:Bool) {
-//            if(state) {
-//                self.indicator.isHidden = false
-//                self.textView.isHidden = true
-//            } else {
-//                self.indicator.isHidden = true
-//                self.textView.isHidden = false
-//            }
-//        }
-//
-//    var indicator:UIActivityIndicatorView
-//    var texto
-
-//    func navBar () {
-//        let controller = ViewController()
-//        controller.title = "Fatos de Chuck Norris"
-//        let navigation = UINavigationController(rootViewController: controller)
-//        present(navigation, animated: true, completion: nil)
-//    }
-
-
-//func setNavigationBar() {
-//    let screenSize: CGRect = UIScreen.main.bounds
-//    let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
-//    _ = UINavigationItem(title: "Chuck Norris")
-//    self.view.addSubview(navBar)
-//}

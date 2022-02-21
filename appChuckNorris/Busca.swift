@@ -1,27 +1,26 @@
 import UIKit
 
 
-struct ArrayFatos: Codable {
+struct ArrayFacts: Codable {
     var categories:[String]
     var value:String
 }
 
-struct EstruturaBusca: Codable {
+struct StructSearch: Codable {
     var total:Int
-    var result:[ArrayFatos]
+    var result:[ArrayFacts]
 }
 
 class Busca {
     
-    var categoria:[[String]] = [[]]
-    var total:Int = 0
-    var fatos:[String] = []
+    var category:[[String]] = [[]]
+    var facts:[String] = []
     
     
-    func getBusca(termo: String, completion: @escaping () -> Void){
+    func getSearch(termo: String, completion: @escaping () -> Void){
         
-        self.fatos = []
-        self.categoria = [[]]
+        self.facts = []
+        self.category = [[]]
         
         guard let url = URL (string: "https://api.chucknorris.io/jokes/search?query=\(termo)") else {
             completion ()
@@ -35,11 +34,11 @@ class Busca {
             }
             guard let data = data else {return}
             do {
-                let infos = try JSONDecoder().decode(EstruturaBusca.self, from: data)
+                let infos = try JSONDecoder().decode(StructSearch.self, from: data)
                 for item in infos.result.self {
-                    self.fatos.append(item.value)
+                    self.facts.append(item.value + "\n " )
                     //print (item.value)
-                    self.categoria.append(item.categories)
+                    self.category.append(item.categories)
 //                    print (item.categories)
 
                 }
